@@ -10,7 +10,7 @@ def plot_hist(d):
 	plt.show()
 
 def plot_scatter_matrix(d, atr):
-	sns.pairplot(data, vars=atr, hue="shot_made_flag", height=2)
+	sns.pairplot(d, vars=atr, hue="shot_made_flag", height=2)
 	plt.savefig("scatter_matrix_plot")
 	plt.show()
 
@@ -40,6 +40,24 @@ for a in attributes:
 #As we can see both in scatter plot and corr_matrix	"loc_x", "loc_y", "lat", "lon" represent the same thing
 
 print(corr_matrix["shot_made_flag"].sort_values(ascending=False))
+
+target = kobe["shot_made_flag"].copy()
+kobe.set_index('shot_id', inplace=True)
+
+kobe = kobe.drop("index",axis=1)
+kobe = kobe.drop("shot_made_flag",axis=1)
+kobe = kobe.drop("lat",axis=1)
+kobe = kobe.drop("lon",axis=1)
+kobe = kobe.drop("team_id",axis=1)
+kobe = kobe.drop("team_name",axis=1)
+kobe = kobe.drop("game_id",axis=1)
+kobe = kobe.drop("game_event_id",axis=1)
+
+print(kobe.head())
+print(kobe.info())
+print(kobe.describe())
+print(kobe.describe(include=["object", "category"]))
+
 
 
 
